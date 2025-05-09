@@ -173,14 +173,29 @@ function resetForm() {
 document.getElementById("userForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const age = document.getElementById("age").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!name || !email || !age) {
+    alert("Semua field harus diisi!");
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert("Format email tidak valid!");
+    return;
+  }
+
   const userId = document.getElementById("userId").value;
   const userData = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    age: parseInt(document.getElementById("age").value),
+    name: name,
+    email: email,
+    age: parseInt(age),
   };
 
-  const password = document.getElementById("password").value;
   if (password) {
     userData.password = password;
   }
